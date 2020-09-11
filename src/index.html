@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>我的代码库</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="assets/codemirror/codemirror.css" />
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/styles/default.min.css">
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <p class="hidden">
+        {{ message }} 
+      </p>
+
+      <div class="navs">
+        <router-link to="/">Code List</router-link>
+        <router-link to="/edit">Code Edit</router-link>
+      </div>
+
+      <router-view></router-view>
+    </div>
+  </body>
+  <script src="https://unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/vue-router@3.4.3/dist/vue-router.min.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script type="text/javascript" src="assets/codemirror/codemirror.js"></script>
+  <script type="text/javascript">
+    const hljs = require('highlight.js');
+    Vue.use(hljs.vuePlugin);
+  </script>
+  <script type="text/javascript" src="renderer.js"></script>
+</html>

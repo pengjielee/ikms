@@ -1,0 +1,74 @@
+{
+  "name": "ikms",
+  "productName": "ikms",
+  "version": "1.0.0",
+  "description": "我的知识库",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "export NODE_ENV=development && electron-forge start",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "clean": "rm -rf out && rm -rf dmg && mkdir dmg",
+    "dmg": "npm run clean && npm run package && appdmg ./appdmg.json ./dmg/ikms.dmg"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Li Pengjie",
+    "email": "386276251@qq.com"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "assets/icons/mac/icon.icns"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "ikms"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {}
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "dayjs": "^1.8.34",
+    "electron-squirrel-startup": "^1.0.0",
+    "highlight.js": "^10.2.0",
+    "jquery": "^3.5.1",
+    "menubar": "^9.0.1",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "6.0.0-beta.47",
+    "@electron-forge/maker-deb": "6.0.0-beta.47",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.53",
+    "@electron-forge/maker-rpm": "6.0.0-beta.47",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.47",
+    "@electron-forge/maker-zip": "6.0.0-beta.47",
+    "electron": "10.1.0"
+  }
+}
