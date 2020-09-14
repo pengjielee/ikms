@@ -2,14 +2,14 @@ const Edit = {
 	template: `
     <el-form :model="form">
       <el-form-item
-        prop="url"
+        prop="link"
         label="Url"
         :rules="[
           { required: true, message: '请输入Url', trigger: 'blur' },
           { type: 'url', message: '请输入正确的Url', trigger: ['blur', 'change'] }
         ]"
       >
-        <el-input v-model="form.url" placeholder="请输入Url" clearable @change="handleChange"></el-input>
+        <el-input v-model="form.link" placeholder="请输入Url" clearable @change="handleChange"></el-input>
       </el-form-item>
       <el-form-item
         prop="title"
@@ -23,14 +23,22 @@ const Edit = {
       </div>
     </el-form>
 	`,
+  created: async function(){
+    const { id } = this.$route.params; 
+    if(id) {
+      const { link, title } = await urlRepo.getById(id);
+      this.form.link = link;
+      this.form.title = title;
+    };
+  },
   methods: {
     handleChange() {
       const self = this;
-      const url = this.form.url;
-      if(!url){
+      const link = this.form.link;
+      if(!link){
         return;
       }
-      request(url, function (error, response, body) {
+      request(link, function (error, response, body) {
         if(error) {
           return;
         }
@@ -45,20 +53,20 @@ const Edit = {
     handleSave() {
       const { id } = this.$route.params; 
       const now = dayjs();
-      const url = {
+      const model = {
         createDate: now.format('YYYY-MM-DD'),
         timestamp: now.valueOf(),
         title: this.form.title,
-        link: this.form.url,
+        link: this.form.link,
       }
 
       if(id){
-        url.id = id;
-        urlRepo.update(url).then(res => {
+        model.id = id;
+        urlRepo.update(model).then(res => {
           this.$router.push('/url/list');
         })
       } else {
-        urlRepo.create(url).then(res => {
+        urlRepo.create(model).then(res => {
           this.$router.push('/url/list');
         })
       }
