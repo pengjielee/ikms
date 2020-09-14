@@ -182,6 +182,24 @@ select {
   font-size: 20px;
 }
 
+.page-header {
+  margin: 20px 0;
+}
+.page-header a {
+  margin-right: 10px;
+}
+
+.page-home {
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-url {
+  margin-top: 20px;
+}
+
 @media screen and (max-width: 768px) {
   
 }

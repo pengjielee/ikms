@@ -1,4 +1,4 @@
-const CodeList = { 
+const List = { 
   components: {
     nothing: Nothing,
   },
@@ -62,10 +62,10 @@ const CodeList = {
   },
   methods: {
   	handleEdit(id){
-  		this.$router.push(`/edit/${id}`);
+  		this.$router.push(`/code/edit/${id}`);
   	},
     handleNew() {
-      this.$router.push(`/edit`);
+      this.$router.push(`/code/edit`);
     },
     handleDelete(id){
       this.$alert('确认删除？', '提示', {
@@ -138,4 +138,4 @@ const CodeList = {
   } 
 };
 
-module.exports = CodeList;
+module.exports = List;

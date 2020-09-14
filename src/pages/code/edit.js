@@ -1,8 +1,8 @@
-const CodeEdit = {
+const Edit = {
 	template: `
     <div class="pure-form pure-form-stacked">
       <div class="form-group">
-        <div class="form-label">内容</div>
+        <div class="form-label">代码</div>
         <div class="form-control">
           <textarea ref="code"></textarea>
         </div>
@@ -98,4 +98,4 @@ const CodeEdit = {
     }
   }
 }
-module.exports = CodeEdit;
+module.exports = Edit;

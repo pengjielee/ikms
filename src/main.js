@@ -4,11 +4,16 @@ const fs = require('fs');
 const dayjs = require('dayjs');
 
 const AppDAO = require(path.join(__dirname, 'db/app_dao.js'));
-const CodeRepository = require(path.join(__dirname, 'db/code_repository.js'));
 const dao = new AppDAO(path.join(__dirname, 'my.db'));
+
+const CodeRepository = require(path.join(__dirname, 'db/code_repository.js'));
 const codeRepo = new CodeRepository(dao);
 
+const UrlRepository = require(path.join(__dirname, 'db/url_repository.js'));
+const urlRepo = new UrlRepository(dao);
+
 codeRepo.createTable();
+urlRepo.createTable();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require

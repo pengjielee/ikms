@@ -15,6 +15,17 @@
       <p class="hidden">
         {{ message }} 
       </p>
+      <p class="hidden">
+        <router-link to="/url/list">url list</router-link>
+        <router-link to="/url/edit">url new</router-link>
+        <router-link to="/code/list">code list</router-link>
+        <router-link to="/code/edit">code edit</router-link>
+      </p>
+
+      <div class="page-header">
+        <router-link to="/url/list">URL</router-link>
+        <router-link to="/code/list">CODE</router-link>
+      </div>
 
       <router-view></router-view>
     </div>
