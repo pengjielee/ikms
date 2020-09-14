@@ -2,6 +2,8 @@ const { app, BrowserWindow, globalShortcut, clipboard, Menu, dialog, ipcMain, Tr
 const path = require('path');
 const fs = require('fs');
 const dayjs = require('dayjs');
+const rp = require('request-promise');
+const cheerio = require('cheerio');
 
 const AppDAO = require(path.join(__dirname, 'db/app_dao.js'));
 const dao = new AppDAO(path.join(__dirname, 'my.db'));
@@ -14,6 +16,9 @@ const urlRepo = new UrlRepository(dao);
 
 codeRepo.createTable();
 urlRepo.createTable();
+
+const urlReg = /(http[s]:)?\/\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+/;
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -119,6 +124,25 @@ const createWindow = () => {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null;
+  });
+
+  globalShortcut.register('CommandOrControl+Option+U', async function () {
+    const now = dayjs();
+    const createDate = now.format('YYYY-MM-DD');
+    const timestamp = now.valueOf();
+    const url = clipboard.readText();
+    console.log(urlReg.test(url));
+    if(urlReg.test(url)){
+      const html = await rp(url);
+      const $ = cheerio.load(html);
+      const title = $('head title').text();
+      const data = await urlRepo.create({
+        title: title,
+        link: url,
+        createDate: createDate,
+        timestamp: timestamp
+      });
+    }
   });
 
   trayIcon = new Tray(path.join(__dirname, 'assets/IconTemplate.png'));
