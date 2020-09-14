@@ -23,9 +23,10 @@ class CodeRepository {
   }
 
   update(note) {
-    const { id, content } = note;
-    return this.dao.run(`UPDATE codes SET content = ? WHERE id = ?`, [
+    const { id, content, tags } = note;
+    return this.dao.run(`UPDATE codes SET content = ?, tags = ? WHERE id = ?`, [
       content,
+      tags,
       id
     ]);
   }

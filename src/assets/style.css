@@ -23,7 +23,6 @@ input,
 textarea,
 select {
   outline: none;
-  appearance: none;
 }
 
 #app {
@@ -101,7 +100,6 @@ select {
 .code-list {}
 .code-list .code-item {
   margin-bottom: 20px;
-  box-shadow: 1px 1px 5px #ddd;
   border-radius: 5px;
   font-size: 14px;
 }
@@ -111,6 +109,30 @@ select {
 .code-list .code-item .actions {
   padding: 10px;
   text-align: right;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+.form-label {
+  margin-bottom: 5px;
+}
+.form-group .pure-button {
+  margin-right: 10px;
+}
+.form-btns {
+  margin: 20px 0;
+}
+.form-radios {
+  display: flex;
+}
+.form-radios .pure-radio {
+  margin-right: 15px;
+  display: inline-flex;
+  align-items: center;
+}
+.form-radios .pure-radio input {
+  margin-right: 5px;
 }
 
 @media screen and (max-width: 768px) {

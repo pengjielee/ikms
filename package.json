@@ -60,6 +60,7 @@
     "highlight.js": "^10.2.0",
     "jquery": "^3.5.1",
     "menubar": "^9.0.1",
+    "prettier": "^2.1.1",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
