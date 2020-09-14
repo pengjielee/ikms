@@ -50,8 +50,12 @@ class CodeRepository {
     );
   }
 
-  getTotal() {
-    return this.dao.all(`SELECT count(*) num FROM codes`);
+  getTotal(tags) {
+    let sql = `SELECT count(*) num FROM codes`;
+    if(tags) {
+      sql = `SELECT count(*) num FROM codes where tags = '${tags}'`
+    }
+    return this.dao.all(sql);
   }
 
   getByTag(tag, page, size = 10) {

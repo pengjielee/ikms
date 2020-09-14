@@ -16,21 +16,6 @@
         {{ message }} 
       </p>
 
-      <div class="navs">
-        <div class="left">
-          <el-select v-model="filter" placeholder="请选择" size="small">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-          <el-button type="primary" size="small" @click="handleFilter">Filter</el-button>
-        </div>
-        <el-button type="success" size="small"><router-link to="/edit">新建</router-link></el-button>
-      </div>
-
       <router-view></router-view>
     </div>
   </body>
