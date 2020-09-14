@@ -54,10 +54,11 @@ class CodeRepository {
     return this.dao.all(`SELECT count(*) num FROM codes`);
   }
 
-  getByDate(date) {
+  getByTag(tag, page, size = 10) {
+    const offset = (page - 1) * size;
     return this.dao.all(
-      `SELECT * FROM codes WHERE createDate = ? order by id desc`,
-      [date]
+      `SELECT * FROM codes WHERE tags = ? order by id desc limit ${size} offset ${offset};`,
+      [tag]
     );
   }
 

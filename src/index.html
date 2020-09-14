@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>我的知识库</title>
-    <!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="assets/codemirror/codemirror.css" />
     <link rel="stylesheet" href="assets/purecss/pure.min.css" />
     <link rel="stylesheet"
@@ -17,8 +17,18 @@
       </p>
 
       <div class="navs">
-        <router-link to="/">Code List</router-link>
-        <router-link to="/edit">Code Edit</router-link>
+        <div class="left">
+          <el-select v-model="filter" placeholder="请选择" size="small">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+          <el-button type="primary" size="small" @click="handleFilter">Filter</el-button>
+        </div>
+        <el-button type="success" size="small"><router-link to="/edit">新建</router-link></el-button>
       </div>
 
       <router-view></router-view>

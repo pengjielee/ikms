@@ -48,19 +48,19 @@ const init = () => {
           { label: "粘贴", accelerator: "CmdOrCtrl+V", selector: "paste:" },
         ]
       },
-      {
-        label: "初始化",
-        submenu: [
-          { label: "清除", accelerator: "CmdOrCtrl+Shift+C", click: function() { mainWindow.webContents.send('init-db'); }}
-        ]
-      }, 
-      {
-        label: "导出",
-        submenu: [
-          { label: "全部导出Json", accelerator: "CmdOrCtrl+Shift+J", click: function() { exportData('json') }},
-          { label: "全部导出Text", accelerator: "CmdOrCtrl+Shift+T", click: function() { exportData('txt') }}
-        ]
-      },
+      // {
+      //   label: "初始化",
+      //   submenu: [
+      //     { label: "清除", accelerator: "CmdOrCtrl+Shift+C", click: function() { mainWindow.webContents.send('init-db'); }}
+      //   ]
+      // }, 
+      // {
+      //   label: "导出",
+      //   submenu: [
+      //     { label: "全部导出Json", accelerator: "CmdOrCtrl+Shift+J", click: function() { exportData('json') }},
+      //     { label: "全部导出Text", accelerator: "CmdOrCtrl+Shift+T", click: function() { exportData('txt') }}
+      //   ]
+      // },
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
   } else {

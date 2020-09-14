@@ -26,7 +26,7 @@ select {
 }
 
 #app {
-  margin: 20px;
+  margin: 0 20px;
 }
 
 .CodeMirror {
@@ -87,10 +87,21 @@ select {
 }
 
 .navs {
-  margin: 10px 0 20px;
+  position: sticky;
+  top: 0px;
+  background: #fff;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
 }
 .navs a {
-  margin-right: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+.navs .el-select {
+  width:120px;
 }
 
 .actions a {
@@ -105,10 +116,17 @@ select {
 }
 .code-list .code-item .content .hljs{
   padding: 15px;
+  line-height: 20px;
 }
-.code-list .code-item .actions {
-  padding: 10px;
-  text-align: right;
+.code-list .code-item .actions .el-link {
+  margin-left: 5px;
+  font-size: 12px;
+}
+.code-list .code-item .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
 }
 
 .form-group {
