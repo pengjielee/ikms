@@ -17,8 +17,14 @@ class CodeRepository {
 
   create(note) {
     return this.dao.run(
-      'INSERT INTO codes (content,tags, timestamp, createDate,createTime) VALUES (?,?,?,?,?)',
-      [note.content, note.tags, note.timestamp, note.createDate, note.createTime]
+      "INSERT INTO codes (content,tags, timestamp, createDate,createTime) VALUES (?,?,?,?,?)",
+      [
+        note.content,
+        note.tags,
+        note.timestamp,
+        note.createDate,
+        note.createTime,
+      ]
     );
   }
 
@@ -27,7 +33,7 @@ class CodeRepository {
     return this.dao.run(`UPDATE codes SET content = ?, tags = ? WHERE id = ?`, [
       content,
       tags,
-      id
+      id,
     ]);
   }
 
@@ -52,8 +58,8 @@ class CodeRepository {
 
   getTotal(tags) {
     let sql = `SELECT count(*) num FROM codes`;
-    if(tags) {
-      sql = `SELECT count(*) num FROM codes where tags = '${tags}'`
+    if (tags) {
+      sql = `SELECT count(*) num FROM codes where tags = '${tags}'`;
     }
     return this.dao.all(sql);
   }
@@ -69,14 +75,14 @@ class CodeRepository {
   search(keyword, date) {
     let sql = `SELECT * FROM codes`;
 
-    if(keyword){
-      sql += ` WHERE content like '%${keyword}%'`
+    if (keyword) {
+      sql += ` WHERE content like '%${keyword}%'`;
     }
-    if(date){
-      if(sql.indexOf('WHERE') >= 0){
-        sql += ` AND createDate = '${date}'`
+    if (date) {
+      if (sql.indexOf("WHERE") >= 0) {
+        sql += ` AND createDate = '${date}'`;
       } else {
-        sql += ` WHERE createDate = '${date}'`
+        sql += ` WHERE createDate = '${date}'`;
       }
     }
     console.log(sql);

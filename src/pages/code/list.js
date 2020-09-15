@@ -1,8 +1,8 @@
-const List = { 
+const List = {
   components: {
     nothing: Nothing,
   },
-	template: `
+  template: `
     <div class="page-codes">
       <div class="navs">
         <div class="left">
@@ -56,27 +56,27 @@ const List = {
       </template>
     </div>
 	`,
-  created: async function(){
+  created: async function () {
     this.getList(1);
     this.getTotal();
   },
   methods: {
-  	handleEdit(id){
-  		this.$router.push(`/code/edit/${id}`);
-  	},
+    handleEdit(id) {
+      this.$router.push(`/code/edit/${id}`);
+    },
     handleNew() {
       this.$router.push(`/code/edit`);
     },
-    handleDelete(id){
-      this.$alert('确认删除？', '提示', {
-        confirmButtonText: '确定',
-        callback: action => {
-          codeRepo.delete(id).then(async res => {
-            this.$message({ type: 'success', message: '删除成功'});
+    handleDelete(id) {
+      this.$alert("确认删除？", "提示", {
+        confirmButtonText: "确定",
+        callback: (action) => {
+          codeRepo.delete(id).then(async (res) => {
+            this.$message({ type: "success", message: "删除成功" });
             this.getList(1);
             this.getTotal();
           });
-        }
+        },
       });
     },
     handlePageChange(page) {
@@ -85,14 +85,14 @@ const List = {
     },
     async getList(page) {
       const { filter, size } = this;
-      if(filter) {
+      if (filter) {
         this.list = await codeRepo.getByTag(filter, page, size);
       } else {
-        this.list = await codeRepo.getByPage(page,size);
+        this.list = await codeRepo.getByPage(page, size);
       }
-      this.status = '';
+      this.status = "";
     },
-    async getTotal(){
+    async getTotal() {
       const filter = this.filter;
       const result = await codeRepo.getTotal(filter);
       this.total = result[0].num;
@@ -101,41 +101,49 @@ const List = {
       this.page = 1;
       this.getTotal();
       this.getList(this.page);
-    }
+    },
   },
-	data() {
+  data() {
     return {
       list: [],
       total: 0,
       page: 1,
       size: 10,
       showPaging: true,
-      status: 'loading',
-      options: [{
-        value: '',
-        label: '全部'
-      },{
-        value: 'html',
-        label: 'html'
-      },{
-        value: 'css',
-        label: 'css'
-      },{
-        value: 'javascript',
-        label: 'javascript'
-      },{
-        value: 'scss',
-        label: 'scss'
-      },{
-        value: 'vue',
-        label: 'vue'
-      },{
-        value: 'markdown',
-        label: 'markdown'
-      }],
-      filter: ''
-    }
-  } 
+      status: "loading",
+      options: [
+        {
+          value: "",
+          label: "全部",
+        },
+        {
+          value: "html",
+          label: "html",
+        },
+        {
+          value: "css",
+          label: "css",
+        },
+        {
+          value: "javascript",
+          label: "javascript",
+        },
+        {
+          value: "scss",
+          label: "scss",
+        },
+        {
+          value: "vue",
+          label: "vue",
+        },
+        {
+          value: "markdown",
+          label: "markdown",
+        },
+      ],
+      filter: "",
+    };
+  },
 };
 
 module.exports = List;

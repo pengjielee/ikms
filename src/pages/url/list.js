@@ -47,30 +47,30 @@ const List = {
     </div>
   `,
 
-  created: function(){
+  created: function () {
     this.getList(1);
     this.getTotal();
   },
   methods: {
-    handleOpen(link){
+    handleOpen(link) {
       shell.openExternal(link);
     },
-    handleEdit(id){
+    handleEdit(id) {
       this.$router.push(`/url/edit/${id}`);
     },
     handleNew() {
       this.$router.push(`/url/edit`);
     },
-    handleDelete(id){
-      this.$alert('确认删除？', '提示', {
-        confirmButtonText: '确定',
-        callback: action => {
-          urlRepo.delete(id).then(async res => {
-            this.$message({ type: 'success', message: '删除成功'});
+    handleDelete(id) {
+      this.$alert("确认删除？", "提示", {
+        confirmButtonText: "确定",
+        callback: (action) => {
+          urlRepo.delete(id).then(async (res) => {
+            this.$message({ type: "success", message: "删除成功" });
             this.getList(1);
             this.getTotal();
           });
-        }
+        },
       });
     },
     handlePageChange(page) {
@@ -79,14 +79,14 @@ const List = {
     },
     async getList(page) {
       const { size } = this;
-      this.list = await urlRepo.getByPage(page,size);
+      this.list = await urlRepo.getByPage(page, size);
       console.log(this.list);
-      this.status = '';
+      this.status = "";
     },
-    async getTotal(){
+    async getTotal() {
       const result = await urlRepo.getTotal();
       this.total = result[0].num;
-    }
+    },
   },
 
   data() {
@@ -96,9 +96,9 @@ const List = {
       page: 1,
       size: 10,
       showPaging: true,
-      status: 'loading',
-    }
-  } 
-}
+      status: "loading",
+    };
+  },
+};
 
 module.exports = List;

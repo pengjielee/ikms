@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>我的知识库</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
     <link rel="stylesheet" href="assets/codemirror/codemirror.css" />
     <link rel="stylesheet" href="assets/purecss/pure.min.css" />
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/styles/default.min.css">
-    <link rel="stylesheet" href="assets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/styles/default.min.css"
+    />
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <div id="app">
-      <p class="hidden">
-        {{ message }} 
-      </p>
+      <p class="hidden">{{ message }}</p>
       <p class="hidden">
         <router-link to="/url/list">url list</router-link>
         <router-link to="/url/edit">url new</router-link>
@@ -36,7 +39,7 @@
   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   <script type="text/javascript" src="assets/codemirror/codemirror.js"></script>
   <script type="text/javascript">
-    const hljs = require('highlight.js');
+    const hljs = require("highlight.js");
     Vue.use(hljs.vuePlugin);
   </script>
   <script type="text/javascript" src="renderer.js"></script>

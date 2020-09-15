@@ -3,7 +3,7 @@ const Index = {
     <div class="page-home">
     	Hello World!
   	</div>
-  `
-}
+  `,
+};
 
 module.exports = Index;

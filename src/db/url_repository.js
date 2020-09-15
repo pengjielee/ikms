@@ -16,17 +16,14 @@ class UrlRepository {
 
   create(url) {
     return this.dao.run(
-      'INSERT INTO urls (link, title, timestamp) VALUES (?,?,?)',
+      "INSERT INTO urls (link, title, timestamp) VALUES (?,?,?)",
       [url.link, url.title, url.timestamp]
     );
   }
 
   update(url) {
     const { id, title } = url;
-    return this.dao.run(`UPDATE urls SET title = ? WHERE id = ?`, [
-      title,
-      id
-    ]);
+    return this.dao.run(`UPDATE urls SET title = ? WHERE id = ?`, [title, id]);
   }
 
   delete(id) {
@@ -62,14 +59,14 @@ class UrlRepository {
   search(keyword, date) {
     let sql = `SELECT * FROM urls`;
 
-    if(keyword){
-      sql += ` WHERE title like '%${keyword}%'`
+    if (keyword) {
+      sql += ` WHERE title like '%${keyword}%'`;
     }
-    if(date){
-      if(sql.indexOf('WHERE') >= 0){
-        sql += ` AND createDate = '${date}'`
+    if (date) {
+      if (sql.indexOf("WHERE") >= 0) {
+        sql += ` AND createDate = '${date}'`;
       } else {
-        sql += ` WHERE createDate = '${date}'`
+        sql += ` WHERE createDate = '${date}'`;
       }
     }
     console.log(sql);

@@ -10,7 +10,7 @@ body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
   margin: auto;
 }
@@ -35,10 +35,9 @@ select {
   border-radius: 5px;
 }
 
-.hidden  {
+.hidden {
   display: none;
 }
-
 
 .list {
   margin-bottom: 30px;
@@ -101,7 +100,7 @@ select {
   text-decoration: none;
 }
 .navs .el-select {
-  width:120px;
+  width: 120px;
   margin-right: 10px;
 }
 .navs .left {
@@ -124,7 +123,7 @@ select {
   border-radius: 5px;
   font-size: 14px;
 }
-.code-list .code-item .content .hljs{
+.code-list .code-item .content .hljs {
   padding: 15px;
   line-height: 20px;
 }
@@ -201,7 +200,8 @@ select {
   justify-content: center;
 }
 
-.page-urls .list, .page-notes .list {
+.page-urls .list,
+.page-notes .list {
   margin-top: 20px;
 }
 
@@ -214,13 +214,8 @@ select {
   margin-right: 10px;
 }
 
-
-
-
 @media screen and (max-width: 768px) {
-  
 }
 
 @media screen and (max-width: 350px) {
-  
 }

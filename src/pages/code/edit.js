@@ -1,5 +1,5 @@
 const Edit = {
-	template: `
+  template: `
     <div class="pure-form pure-form-stacked">
       <div class="form-group">
         <div class="form-label">代码</div>
@@ -26,76 +26,76 @@ const Edit = {
       </div>
     </div>
 	`,
-  mounted: async function(){
-  	const editor = CodeMirror.fromTextArea(this.$refs.code, {
-	    lineNumbers: true
-	  });
-	  // editor.on('change', (codeMirror) => {});
+  mounted: async function () {
+    const editor = CodeMirror.fromTextArea(this.$refs.code, {
+      lineNumbers: true,
+    });
+    // editor.on('change', (codeMirror) => {});
     this.editor = editor;
 
-	  const { id } = this.$route.params; 
-  	if(id) {
-  		const { content, tags } = await codeRepo.getById(id);
-  		editor.doc.setValue(content);
-  		this.tags = tags;
-  	};
+    const { id } = this.$route.params;
+    if (id) {
+      const { content, tags } = await codeRepo.getById(id);
+      editor.doc.setValue(content);
+      this.tags = tags;
+    }
   },
   watch: {
-    tags: function(newVal){
+    tags: function (newVal) {
       console.log(newVal);
       let content = this.editor.doc.getValue();
-      let parser = newVal === 'javascript' ? 'babel' : newVal;
-      try{
+      let parser = newVal === "javascript" ? "babel" : newVal;
+      try {
         content = prettier.format(content, { parser: parser, semi: false });
-        content = content[0] === ';' ? content.slice(1) : content;
-      }catch(e){
+        content = content[0] === ";" ? content.slice(1) : content;
+      } catch (e) {
         console.log(e);
       }
       this.editor.doc.setValue(content);
-    }
+    },
   },
   methods: {
     handleSave() {
-      const { id } = this.$route.params; 
+      const { id } = this.$route.params;
       const now = dayjs();
       const note = {
-        createDate: now.format('YYYY-MM-DD'),
-        createTime: now.format('HH:mm:ss'),
+        createDate: now.format("YYYY-MM-DD"),
+        createTime: now.format("HH:mm:ss"),
         timestamp: now.valueOf(),
-        tags: this.tags
-      }
+        tags: this.tags,
+      };
 
-      let parser = this.tags === 'javascript' ? 'babel' : this.tags;
+      let parser = this.tags === "javascript" ? "babel" : this.tags;
       let content = this.editor.doc.getValue();
-      try{
+      try {
         content = prettier.format(content, { parser: parser, semi: false });
-        content = content[0] === ';' ? content.slice(1) : content;
-      }catch(e){
+        content = content[0] === ";" ? content.slice(1) : content;
+      } catch (e) {
         console.log(e);
       }
       note.content = content;
 
-      if(id){
+      if (id) {
         note.id = id;
-        codeRepo.update(note).then(res => {
+        codeRepo.update(note).then((res) => {
           console.log(res);
-          this.$router.push('/');
-        })
+          this.$router.push("/");
+        });
       } else {
-        codeRepo.create(note).then(res => {
+        codeRepo.create(note).then((res) => {
           console.log(res);
-          this.$router.push('/');
-        })
+          this.$router.push("/");
+        });
       }
     },
     handleBack() {
       this.$router.back();
-    }
+    },
   },
-	data() {
+  data() {
     return {
-      tags: 'javascript',
-    }
-  }
-}
+      tags: "javascript",
+    };
+  },
+};
 module.exports = Edit;

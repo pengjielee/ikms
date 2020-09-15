@@ -1,8 +1,8 @@
-const List = { 
+const List = {
   components: {
     nothing: Nothing,
   },
-	template: `
+  template: `
     <div class="page-notes">
       <div class="navs">
         <el-input size="medium" v-model="form.keyword" placeholder="请输入关键字"></el-input>
@@ -51,60 +51,68 @@ const List = {
       </template>
     </div>
 	`,
-  created: async function(){
+  created: async function () {
     this.getList(1);
     this.getTotal();
   },
   methods: {
-    handleDelete(id){
-      this.$alert('确认删除？', '提示', {
-        confirmButtonText: '确定',
-        callback: action => {
-          noteRepo.delete(id).then(async res => {
-            this.$message({ type: 'success', message: '删除成功'});
+    handleDelete(id) {
+      this.$alert("确认删除？", "提示", {
+        confirmButtonText: "确定",
+        callback: (action) => {
+          noteRepo.delete(id).then(async (res) => {
+            this.$message({ type: "success", message: "删除成功" });
             this.getList(1);
             this.getTotal();
           });
-        }
+        },
       });
     },
-    handleCopy(){},
+    handleCopy() {},
     handlePageChange(page) {
       this.page = page;
       this.getList(page);
     },
     async getList(page) {
-      const { size,keyword,date } = this.form;
-      this.list = await noteRepo.search({ page: page, size: size, keyword: keyword, date: date});
+      const { size, keyword, date } = this.form;
+      this.list = await noteRepo.search({
+        page: page,
+        size: size,
+        keyword: keyword,
+        date: date,
+      });
       console.log(this.list);
-      this.status = '';
+      this.status = "";
     },
-    async getTotal(){
-      const { keyword,date } = this.form;
-      const result = await noteRepo.searchTotal({ keyword: keyword, date: date });
+    async getTotal() {
+      const { keyword, date } = this.form;
+      const result = await noteRepo.searchTotal({
+        keyword: keyword,
+        date: date,
+      });
       this.total = result[0].num;
     },
     handleSearch() {
       this.page = 1;
       this.getTotal();
       this.getList(this.page);
-    }
+    },
   },
-	data() {
+  data() {
     return {
       list: [],
       showPaging: true,
-      status: 'loading',
-      filter: '',
+      status: "loading",
+      filter: "",
       form: {
-        keyword: '',
-        date: '',
+        keyword: "",
+        date: "",
         page: 1,
         size: 10,
         total: 0,
-      }
-    }
-  } 
+      },
+    };
+  },
 };
 
 module.exports = List;

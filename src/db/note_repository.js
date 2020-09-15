@@ -16,8 +16,8 @@ class NoteRepository {
 
   create(note) {
     return this.dao.run(
-      'INSERT INTO notes (content,timestamp,createDate,createTime) VALUES (?,?,?,?)',
-      [note.content,note.timestamp, note.createDate, note.createTime]
+      "INSERT INTO notes (content,timestamp,createDate,createTime) VALUES (?,?,?,?)",
+      [note.content, note.timestamp, note.createDate, note.createTime]
     );
   }
 
@@ -25,7 +25,7 @@ class NoteRepository {
     const { id, content } = note;
     return this.dao.run(`UPDATE notes SET content = ? WHERE id = ?`, [
       content,
-      id
+      id,
     ]);
   }
 
@@ -59,19 +59,19 @@ class NoteRepository {
     );
   }
 
-  searchTotal(params){
+  searchTotal(params) {
     const { keyword, date } = params;
 
     let sql = `SELECT count(*) num FROM notes`;
 
-    if(keyword){
-      sql += ` WHERE content like '%${keyword}%'`
+    if (keyword) {
+      sql += ` WHERE content like '%${keyword}%'`;
     }
-    if(date){
-      if(sql.indexOf('WHERE') >= 0){
-        sql += ` AND createDate = '${date}'`
+    if (date) {
+      if (sql.indexOf("WHERE") >= 0) {
+        sql += ` AND createDate = '${date}'`;
       } else {
-        sql += ` WHERE createDate = '${date}'`
+        sql += ` WHERE createDate = '${date}'`;
       }
     }
     console.log(sql);
@@ -82,23 +82,23 @@ class NoteRepository {
   search(params) {
     const page = params.page || 1;
     const size = params.size || 10;
-    const keyword = params.keyword || '';
-    const date = params.date || '';
+    const keyword = params.keyword || "";
+    const date = params.date || "";
     const offset = (page - 1) * size;
     let sql = `SELECT * FROM notes`;
 
-    if(keyword){
-      sql += ` WHERE content like '%${keyword}%'`
+    if (keyword) {
+      sql += ` WHERE content like '%${keyword}%'`;
     }
-    if(date){
-      if(sql.indexOf('WHERE') >= 0){
-        sql += ` AND createDate = '${date}'`
+    if (date) {
+      if (sql.indexOf("WHERE") >= 0) {
+        sql += ` AND createDate = '${date}'`;
       } else {
-        sql += ` WHERE createDate = '${date}'`
+        sql += ` WHERE createDate = '${date}'`;
       }
     }
 
-    sql += ` order by id desc limit ${size} offset ${offset}`
+    sql += ` order by id desc limit ${size} offset ${offset}`;
     console.log(sql);
 
     return this.dao.all(sql);

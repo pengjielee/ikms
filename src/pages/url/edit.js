@@ -1,5 +1,5 @@
 const Edit = {
-	template: `
+  template: `
     <el-form :model="form">
       <el-form-item
         prop="link"
@@ -23,65 +23,65 @@ const Edit = {
       </div>
     </el-form>
 	`,
-  created: async function(){
-    const { id } = this.$route.params; 
-    if(id) {
+  created: async function () {
+    const { id } = this.$route.params;
+    if (id) {
       const { link, title } = await urlRepo.getById(id);
       this.form.link = link;
       this.form.title = title;
-    };
+    }
   },
   methods: {
     handleChange() {
       const self = this;
       const link = this.form.link;
-      if(!link){
+      if (!link) {
         return;
       }
       request(link, function (error, response, body) {
-        if(error) {
+        if (error) {
           return;
         }
         const statusCode = response && response.statusCode;
-        if(statusCode === 200){
+        if (statusCode === 200) {
           const $ = cheerio.load(body);
-          const title = $('head title').text();
+          const title = $("head title").text();
           self.form.title = title;
         }
       });
     },
     handleSave() {
-      const { id } = this.$route.params; 
+      const { id } = this.$route.params;
       const now = dayjs();
       const model = {
-        createDate: now.format('YYYY-MM-DD'),
+        createDate: now.format("YYYY-MM-DD"),
         timestamp: now.valueOf(),
         title: this.form.title,
         link: this.form.link,
-      }
+      };
 
-      if(id){
+      if (id) {
         model.id = id;
-        urlRepo.update(model).then(res => {
-          this.$router.push('/url/list');
-        })
+        urlRepo.update(model).then((res) => {
+          this.$router.push("/url/list");
+        });
       } else {
-        urlRepo.create(model).then(res => {
-          this.$router.push('/url/list');
-        })
+        urlRepo.create(model).then((res) => {
+          this.$router.push("/url/list");
+        });
       }
     },
     handleBack() {
       this.$router.back();
-    }
+    },
   },
-	data() {
+  data() {
     return {
       form: {
-        title: '',
-        link: '',
-      }
-    }
-  }
-}
+        title: "",
+        link: "",
+      },
+    };
+  },
+};
 module.exports = Edit;
