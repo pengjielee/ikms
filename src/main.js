@@ -78,24 +78,24 @@ const init = () => {
         ],
       },
       {
-        label: "初始化",
+        label: "重置",
         submenu: [
           {
-            label: "清除Url",
+            label: "重置URL",
             click: function () {
               urlRepo.reset();
               mainWindow.webContents.send("reload");
             },
           },
           {
-            label: "清除Note",
+            label: "重置NOTE",
             click: function () {
               noteRepo.reset();
               mainWindow.webContents.send("reload");
             },
           },
           {
-            label: "清除Code",
+            label: "重置CODE",
             click: function () {
               codeRepo.reset();
               mainWindow.webContents.send("reload");
@@ -107,24 +107,36 @@ const init = () => {
         label: "导出",
         submenu: [
           {
-            label: "导出Url",
+            label: "导出URL",
             accelerator: "CmdOrCtrl+Shift+U",
             click: function () {
               exportData("url");
             },
           },
           {
-            label: "导出Note",
+            label: "导出NOTE",
             accelerator: "CmdOrCtrl+Shift+N",
             click: function () {
               exportData("note");
             },
           },
           {
-            label: "导出Code",
+            label: "导出CODE",
             accelerator: "CmdOrCtrl+Shift+C",
             click: function () {
               exportData("code");
+            },
+          },
+        ],
+      },
+      {
+        label: "开发",
+        submenu: [
+          {
+            label: "DevTools",
+            accelerator: "CmdOrCtrl+Shift+I",
+            click(item, focusedWindow) {
+              if (focusedWindow) focusedWindow.webContents.toggleDevTools();
             },
           },
         ],
