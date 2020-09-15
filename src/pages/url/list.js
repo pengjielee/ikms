@@ -25,6 +25,7 @@ const List = {
               <div class="footer">
                 <p></p>
                 <div class="actions">
+                  <el-link type="success" @click="handleCopy(item.link)">复制链接</el-link>
                   <el-link type="primary" @click="handleEdit(item.id)">编辑</el-link>
                   <el-link type="danger" @click="handleDelete(item.id)">删除</el-link>
                 </div>
@@ -57,6 +58,11 @@ const List = {
     });
   },
   methods: {
+    handleCopy(content) {
+      content = utils.decode(content);
+      clipboard.writeText(content);
+      this.$message("已复制到剪粘板");
+    },
     handleOpen(link) {
       shell.openExternal(link);
     },

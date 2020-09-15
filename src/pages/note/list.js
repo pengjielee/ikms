@@ -31,7 +31,7 @@ const List = {
                 <span class='date'>{{item.createDate}} {{item.createTime}}</span>
         		    <div class="actions">
                   <el-link type="danger" @click="handleDelete(item.id)">删除</el-link>
-                  <el-link type="primary" @click="handleCopy(item.id)">复制</el-link>
+                  <el-link type="success" @click="handleCopy(item.content)">复制</el-link>
         		    </div>
               </div>
       		  </li>
@@ -73,7 +73,11 @@ const List = {
         },
       });
     },
-    handleCopy() {},
+    handleCopy(content) {
+      content = utils.decode(content);
+      clipboard.writeText(content);
+      this.$message("已复制到剪粘板");
+    },
     handlePageChange(page) {
       this.page = page;
       this.getList(page);

@@ -81,10 +81,24 @@ const init = () => {
         label: "初始化",
         submenu: [
           {
-            label: "清除",
-            accelerator: "CmdOrCtrl+Shift+C",
+            label: "清除Url",
+            click: function () {
+              urlRepo.reset();
+              mainWindow.webContents.send("reload");
+            },
+          },
+          {
+            label: "清除Note",
             click: function () {
               noteRepo.reset();
+              mainWindow.webContents.send("reload");
+            },
+          },
+          {
+            label: "清除Code",
+            click: function () {
+              codeRepo.reset();
+              mainWindow.webContents.send("reload");
             },
           },
         ],

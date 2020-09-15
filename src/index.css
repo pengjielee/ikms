@@ -214,6 +214,16 @@ select {
   margin-right: 10px;
 }
 
+.el-message-box {
+  min-width: 150px;
+  max-width: 240px;
+}
+
+.el-message {
+  min-width: 100px;
+  max-width: 260px;
+}
+
 @media screen and (max-width: 768px) {
 }
 

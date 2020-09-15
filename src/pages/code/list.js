@@ -35,6 +35,7 @@ const List = {
                   <el-tag size="small" v-if="item.tags">{{ item.tags }}</el-tag>
                 </div>
         		    <div class="actions">
+                  <el-link type="success" @click="handleCopy(item.content)">复制</el-link>
                   <el-link type="primary" @click="handleEdit(item.id)">编辑</el-link>
                   <el-link type="danger" @click="handleDelete(item.id)">删除</el-link>
         		    </div>
@@ -66,6 +67,11 @@ const List = {
     });
   },
   methods: {
+    handleCopy(content) {
+      content = utils.decode(content);
+      clipboard.writeText(content);
+      this.$message("已复制到剪粘板");
+    },
     handleEdit(id) {
       this.$router.push(`/code/edit/${id}`);
     },
