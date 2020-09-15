@@ -20,10 +20,10 @@ const List = {
             <li v-for="item in list" :key="item.id" class="item">
               <div class="content">
                 <p>{{ item.title }}</p>
-                <p><el-link @click="handleOpen(item.link)">{{ item.link }}</el-link></p>
+                <p><el-link type="primary" @click="handleOpen(item.link)">{{ item.link }}</el-link></p>
               </div>
               <div class="footer">
-                <p></p>
+                <p>{{ item.createDate }}</p>
                 <div class="actions">
                   <el-link type="success" @click="handleCopy(item.link)">复制链接</el-link>
                   <el-link type="primary" @click="handleEdit(item.id)">编辑</el-link>

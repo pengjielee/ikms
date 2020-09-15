@@ -133,6 +133,9 @@ select {
   align-items: center;
   padding: 8px 0;
 }
+.code-list .code-item .date {
+  margin-left: 10px;
+}
 
 .form-group {
   margin-bottom: 15px;

@@ -33,6 +33,7 @@ const List = {
               <div class="footer">
                 <div>
                   <el-tag size="small" v-if="item.tags">{{ item.tags }}</el-tag>
+                  <el-tag type="info" size="small" class="date">{{ item.createDate }} {{ item.createTime }}</el-tag>
                 </div>
         		    <div class="actions">
                   <el-link type="success" @click="handleCopy(item.content)">复制</el-link>

@@ -141,6 +141,25 @@ const init = () => {
           },
         ],
       },
+      {
+        label: "数据库",
+        submenu: [
+          {
+            label: "备份",
+            accelerator: "CmdOrCtrl+B",
+            click: function () {
+              backupDb();
+            },
+          },
+          {
+            label: "还原",
+            accelerator: "CmdOrCtrl+R",
+            click: function () {
+              restoreDb();
+            },
+          },
+        ],
+      },
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   } else {
@@ -194,10 +213,62 @@ const exportData = (type) => {
   });
 };
 
+const showMessage = (message) => {
+  const options = {
+    type: "info",
+    title: "Information",
+    message: message,
+    buttons: ["Yes"],
+  };
+  dialog.showMessageBox(options);
+};
+
+const backupDb = () => {
+  const options = {
+    title: "请选择要备份的文件名",
+    buttonLabel: "保存",
+    defaultPath: "my.db",
+    filters: [{ name: "Custom File Type", extensions: ["db"] }],
+  };
+  dialog.showSaveDialog(options).then(async (result) => {
+    if (!result.canceled) {
+      const fileReadStream = fs.createReadStream(path.join(__dirname, "my.db"));
+      const fileWriteStream = fs.createWriteStream(result.filePath);
+      fileReadStream.pipe(fileWriteStream);
+      fileWriteStream.on("close", function () {
+        showMessage("备份成功");
+      });
+    }
+  });
+};
+
+const restoreDb = () => {
+  const options = {
+    title: "请选择要还原的文件",
+    buttonLabel: "还原",
+    defaultPath: "my.db",
+    filters: [{ name: "Custom File Type", extensions: ["db"] }],
+    properties: ["openFile"],
+  };
+  dialog.showOpenDialog(options).then(async (result) => {
+    console.log(result);
+    if (!result.canceled) {
+      const fileReadStream = fs.createReadStream(result.filePaths[0]);
+      const fileWriteStream = fs.createWriteStream(
+        path.join(__dirname, "my.db")
+      );
+      fileReadStream.pipe(fileWriteStream);
+      fileWriteStream.on("close", function () {
+        showMessage("还原成功");
+      });
+    }
+  });
+};
+
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    minWidth: 300,
+    minWidth: 400,
     backgroundColor: "#fff",
     webPreferences: {
       nodeIntegration: true,

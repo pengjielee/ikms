@@ -16,8 +16,8 @@ class UrlRepository {
 
   create(url) {
     return this.dao.run(
-      "INSERT INTO urls (link, title, timestamp) VALUES (?,?,?)",
-      [url.link, url.title, url.timestamp]
+      "INSERT INTO urls (link, title, createDate, timestamp) VALUES (?,?,?,?)",
+      [url.link, url.title, url.createDate, url.timestamp]
     );
   }
 
