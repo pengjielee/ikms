@@ -54,6 +54,11 @@ const List = {
   created: async function () {
     this.getList(1);
     this.getTotal();
+    ipcRenderer.on("reload", (event, notes) => {
+      this.getList(1);
+      this.getTotal();
+      notifyMe();
+    });
   },
   methods: {
     handleDelete(id) {
@@ -81,7 +86,6 @@ const List = {
         keyword: keyword,
         date: date,
       });
-      console.log(this.list);
       this.status = "";
     },
     async getTotal() {

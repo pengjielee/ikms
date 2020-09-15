@@ -89,13 +89,32 @@ const init = () => {
           },
         ],
       },
-      // {
-      //   label: "导出",
-      //   submenu: [
-      //     { label: "全部导出Json", accelerator: "CmdOrCtrl+Shift+J", click: function() { exportData('json') }},
-      //     { label: "全部导出Text", accelerator: "CmdOrCtrl+Shift+T", click: function() { exportData('txt') }}
-      //   ]
-      // },
+      {
+        label: "导出",
+        submenu: [
+          {
+            label: "导出Url",
+            accelerator: "CmdOrCtrl+Shift+U",
+            click: function () {
+              exportData("url");
+            },
+          },
+          {
+            label: "导出Note",
+            accelerator: "CmdOrCtrl+Shift+N",
+            click: function () {
+              exportData("note");
+            },
+          },
+          {
+            label: "导出Code",
+            accelerator: "CmdOrCtrl+Shift+C",
+            click: function () {
+              exportData("code");
+            },
+          },
+        ],
+      },
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   } else {
@@ -113,13 +132,39 @@ const exportData = (type) => {
     title: "请选择要保存的文件名",
     buttonLabel: "保存",
     defaultPath: Date.now() + "",
-    filters: [{ name: "Custom File Type", extensions: [type] }],
+    filters: [{ name: "Custom File Type", extensions: ["txt"] }],
   };
-  dialog.showSaveDialog(options).then((result) => {
-    codeRepo.getAll().then((notes) => {
-      let content = "";
-      fs.writeFileSync(result.filePath, content);
-    });
+  dialog.showSaveDialog(options).then(async (result) => {
+    let content = "";
+    switch (type) {
+      case "url":
+        const urls = await urlRepo.getAll();
+        content = urls
+          .map((item) => {
+            return `${item.title}\r\n${item.link} \r\n\r\n`;
+          })
+          .join("");
+        break;
+      case "note":
+        const notes = await noteRepo.getAll();
+        content = notes
+          .map((item) => {
+            item.content = utils.decode(item.content);
+            return `${item.createDate}\r\n${item.content}\r\n\r\n`;
+          })
+          .join("");
+        break;
+      case "code":
+        const codes = await codeRepo.getAll();
+        const devide = "```";
+        content = codes
+          .map((item) => {
+            return `${item.tags}\r\n${devide}\r\n${item.content}${devide}\r\n\r\n`;
+          })
+          .join("");
+        break;
+    }
+    fs.writeFileSync(result.filePath, content);
   });
 };
 
@@ -149,7 +194,7 @@ const createWindow = () => {
     mainWindow = null;
   });
 
-  globalShortcut.register("CommandOrControl+Option+N", async function () {
+  globalShortcut.register("CommandOrControl+Option+C", async function () {
     const now = dayjs();
     const createDate = now.format("YYYY-MM-DD");
     const createTime = now.format("HH:mm:ss");
@@ -174,6 +219,7 @@ const createWindow = () => {
         timestamp: timestamp,
       });
     }
+    mainWindow.webContents.send("reload", result);
     console.log(result);
   });
 

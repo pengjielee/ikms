@@ -21,6 +21,32 @@ const urlRepo = new UrlRepository(dao);
 const NoteRepository = require(path.join(__dirname, "db/note_repository.js"));
 const noteRepo = new NoteRepository(dao);
 
+const notifyMe = () => {
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification("您有新的内容保存到粘贴板");
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("您有新的内容保存到粘贴板");
+      }
+    });
+  }
+
+  // At last, if the user has denied notifications, and you
+  // want to be respectful there is no need to bother them any more.
+};
+
 const Nothing = require("./pages/nothing.js");
 const HomeIndex = require("./pages/home/index.js");
 const CodeList = require("./pages/code/list.js");
