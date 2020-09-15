@@ -18,8 +18,8 @@ const Edit = {
         <el-input v-model="form.title" placeholder="请输入标题" clearable></el-input>
       </el-form-item>
       <div class="form-group form-btns">
-        <el-button type="primary" size="small" @click="handleSave">保存</el-button>
-        <el-button size="small" @click="handleBack">返回</el-button>
+        <el-button type="primary" size="medium" @click="handleSave">保存</el-button>
+        <el-button size="medium" @click="handleBack">返回</el-button>
       </div>
     </el-form>
 	`,

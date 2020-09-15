@@ -3,11 +3,11 @@ const List = {
     nothing: Nothing,
   },
   template: `
-    <div>
+    <div class="page-urls">
       <div class="navs">
         <div class="left">
         </div>
-        <el-button type="success" size="small" @click="handleNew">新建</el-button>
+        <el-button type="success" size="medium" @click="handleNew">新建</el-button>
       </div>
       <template v-if="status === 'loading'">
         <div class="loading">
@@ -20,7 +20,7 @@ const List = {
             <li v-for="item in list" :key="item.id" class="item">
               <div class="content">
                 <p>{{ item.title }}</p>
-                <p>{{ item.link }}</p>
+                <p><el-link @click="handleOpen(item.link)">{{ item.link }}</el-link></p>
               </div>
               <div class="footer">
                 <p></p>
@@ -52,6 +52,9 @@ const List = {
     this.getTotal();
   },
   methods: {
+    handleOpen(link){
+      shell.openExternal(link);
+    },
     handleEdit(id){
       this.$router.push(`/url/edit/${id}`);
     },

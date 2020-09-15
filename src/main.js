@@ -5,6 +5,8 @@ const dayjs = require('dayjs');
 const rp = require('request-promise');
 const cheerio = require('cheerio');
 
+const utils = require(path.join(__dirname, 'utils/index.js'));
+
 const AppDAO = require(path.join(__dirname, 'db/app_dao.js'));
 const dao = new AppDAO(path.join(__dirname, 'my.db'));
 
@@ -14,8 +16,12 @@ const codeRepo = new CodeRepository(dao);
 const UrlRepository = require(path.join(__dirname, 'db/url_repository.js'));
 const urlRepo = new UrlRepository(dao);
 
+const NoteRepository = require(path.join(__dirname, 'db/note_repository.js'));
+const noteRepo = new NoteRepository(dao);
+
 codeRepo.createTable();
 urlRepo.createTable();
+noteRepo.createTable();
 
 const urlReg = /(http[s]:)?\/\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+/;
 
@@ -58,12 +64,12 @@ const init = () => {
           { label: "粘贴", accelerator: "CmdOrCtrl+V", selector: "paste:" },
         ]
       },
-      // {
-      //   label: "初始化",
-      //   submenu: [
-      //     { label: "清除", accelerator: "CmdOrCtrl+Shift+C", click: function() { mainWindow.webContents.send('init-db'); }}
-      //   ]
-      // }, 
+      {
+        label: "初始化",
+        submenu: [
+          { label: "清除", accelerator: "CmdOrCtrl+Shift+C", click: function() { noteRepo.reset(); }}
+        ]
+      }, 
       // {
       //   label: "导出",
       //   submenu: [
@@ -126,23 +132,32 @@ const createWindow = () => {
     mainWindow = null;
   });
 
-  globalShortcut.register('CommandOrControl+Option+U', async function () {
+  globalShortcut.register('CommandOrControl+Option+N', async function () {
     const now = dayjs();
     const createDate = now.format('YYYY-MM-DD');
+    const createTime = now.format('HH:mm:ss');
     const timestamp = now.valueOf();
-    const url = clipboard.readText();
-    console.log(urlReg.test(url));
-    if(urlReg.test(url)){
-      const html = await rp(url);
+    const content = utils.encode(clipboard.readText());
+    let result = null;
+    if(urlReg.test(content)){
+      const html = await rp(content);
       const $ = cheerio.load(html);
       const title = $('head title').text();
-      const data = await urlRepo.create({
+      result = await urlRepo.create({
         title: title,
-        link: url,
+        link: content,
         createDate: createDate,
         timestamp: timestamp
       });
+    } else {
+      result = await noteRepo.create({
+        content: content, 
+        createDate: createDate, 
+        createTime: createTime,
+        timestamp: timestamp 
+      });
     }
+    console.log(result);
   });
 
   trayIcon = new Tray(path.join(__dirname, 'assets/IconTemplate.png'));

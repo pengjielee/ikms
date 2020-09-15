@@ -8,6 +8,7 @@ class NoteRepository {
     CREATE TABLE IF NOT EXISTS notes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       content TEXT,
+      timestamp TEXT,
       createDate TEXT,
       createTime TEXT)`;
     return this.dao.run(sql);
@@ -15,8 +16,8 @@ class NoteRepository {
 
   create(note) {
     return this.dao.run(
-      'INSERT INTO notes (content,createDate,createTime) VALUES (?,?,?)',
-      [note.content, note.createDate, note.createTime]
+      'INSERT INTO notes (content,timestamp,createDate,createTime) VALUES (?,?,?,?)',
+      [note.content,note.timestamp, note.createDate, note.createTime]
     );
   }
 
@@ -58,7 +59,32 @@ class NoteRepository {
     );
   }
 
-  search(keyword, date) {
+  searchTotal(params){
+    const { keyword, date } = params;
+
+    let sql = `SELECT count(*) num FROM notes`;
+
+    if(keyword){
+      sql += ` WHERE content like '%${keyword}%'`
+    }
+    if(date){
+      if(sql.indexOf('WHERE') >= 0){
+        sql += ` AND createDate = '${date}'`
+      } else {
+        sql += ` WHERE createDate = '${date}'`
+      }
+    }
+    console.log(sql);
+
+    return this.dao.all(sql);
+  }
+
+  search(params) {
+    const page = params.page || 1;
+    const size = params.size || 10;
+    const keyword = params.keyword || '';
+    const date = params.date || '';
+    const offset = (page - 1) * size;
     let sql = `SELECT * FROM notes`;
 
     if(keyword){
@@ -71,6 +97,8 @@ class NoteRepository {
         sql += ` WHERE createDate = '${date}'`
       }
     }
+
+    sql += ` order by id desc limit ${size} offset ${offset}`
     console.log(sql);
 
     return this.dao.all(sql);

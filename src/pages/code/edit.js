@@ -21,8 +21,8 @@ const Edit = {
         </div>
       </div>
       <div class="form-group form-btns">
-        <el-button type="primary" size="small" @click="handleSave">保存</el-button>
-        <el-button size="small" @click="handleBack">返回</el-button>
+        <el-button type="primary" size="medium" @click="handleSave">保存</el-button>
+        <el-button size="medium" @click="handleBack">返回</el-button>
       </div>
     </div>
 	`,

@@ -110,11 +110,15 @@ select {
   align-items: center;
 }
 
-.actions a {
+.actions .el-link {
   cursor: pointer;
+  font-size: 12px;
+  margin-left: 10px;
 }
 
-.code-list {}
+.code-list {
+  margin-top: 20px;
+}
 .code-list .code-item {
   margin-bottom: 20px;
   border-radius: 5px;
@@ -124,15 +128,11 @@ select {
   padding: 15px;
   line-height: 20px;
 }
-.code-list .code-item .actions .el-link {
-  margin-left: 5px;
-  font-size: 12px;
-}
 .code-list .code-item .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 0;
+  padding: 8px 0;
 }
 
 .form-group {
@@ -183,10 +183,15 @@ select {
 }
 
 .page-header {
-  margin: 20px 0;
+  margin: 30px 0;
+  text-align: center;
 }
 .page-header a {
   margin-right: 10px;
+  color: #66b1ff;
+}
+.page-header a.router-link-active {
+  color: #1015e4;
 }
 
 .page-home {
@@ -196,9 +201,21 @@ select {
   justify-content: center;
 }
 
-.list-url {
+.page-urls .list, .page-notes .list {
   margin-top: 20px;
 }
+
+.page-notes .navs .el-input {
+  flex: 1 1 30%;
+  margin-right: 10px;
+}
+.page-notes .navs .el-date-editor {
+  flex: 1 1 30%;
+  margin-right: 10px;
+}
+
+
+
 
 @media screen and (max-width: 768px) {
   

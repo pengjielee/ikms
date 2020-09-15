@@ -3,10 +3,10 @@ const List = {
     nothing: Nothing,
   },
 	template: `
-    <div>
+    <div class="page-codes">
       <div class="navs">
         <div class="left">
-          <el-select v-model="filter" placeholder="请选择" size="small">
+          <el-select v-model="filter" placeholder="请选择" size="medium">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -14,9 +14,9 @@ const List = {
               :value="item.value">
             </el-option>
           </el-select>
-          <el-button type="primary" size="small" @click="handleFilter">Filter</el-button>
+          <el-button type="primary" size="medium" @click="handleFilter">Filter</el-button>
         </div>
-        <el-button type="success" size="small" @click="handleNew">新建</el-button>
+        <el-button type="success" size="medium" @click="handleNew">新建</el-button>
       </div>
       <template v-if="status === 'loading'">
         <div class="loading">
