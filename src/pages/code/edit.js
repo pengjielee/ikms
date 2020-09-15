@@ -79,12 +79,12 @@ const Edit = {
         note.id = id;
         codeRepo.update(note).then((res) => {
           console.log(res);
-          this.$router.push("/");
+          this.$router.push("/code/list");
         });
       } else {
         codeRepo.create(note).then((res) => {
           console.log(res);
-          this.$router.push("/");
+          this.$router.push("/code/list");
         });
       }
     },

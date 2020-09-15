@@ -82,11 +82,13 @@ const List = {
       this.$alert("确认删除？", "提示", {
         confirmButtonText: "确定",
         callback: (action) => {
-          codeRepo.delete(id).then(async (res) => {
-            this.$message({ type: "success", message: "删除成功" });
-            this.getList(1);
-            this.getTotal();
-          });
+          if (action === "confirm") {
+            codeRepo.delete(id).then(async (res) => {
+              this.$message({ type: "success", message: "删除成功" });
+              this.getList(1);
+              this.getTotal();
+            });
+          }
         },
       });
     },
