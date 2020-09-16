@@ -24,8 +24,7 @@ const List = {
         <template v-if="list.length > 0">
       		<ul class="list">
       		  <li v-for="item in list" :key="item.id" class="item">
-      		    <div class="content">
-                {{ item.content }}
+              <div class="content" v-html="item.content">
               </div>
               <div class="footer">
                 <span class='date'>{{item.createDate}} {{item.createTime}}</span>
@@ -40,7 +39,7 @@ const List = {
             layout="prev, pager, next"
             background
             :page-size="form.size"
-            :hide-on-single-page="true"
+            :hide-on-single-page="showPaging"
             :total="form.total"
             @current-change="handlePageChange">
           </el-pagination>
@@ -100,7 +99,7 @@ const List = {
         keyword: keyword,
         date: date,
       });
-      this.total = result[0].num;
+      this.form.total = result[0].num;
     },
     handleSearch() {
       this.page = 1;

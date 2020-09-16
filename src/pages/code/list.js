@@ -16,7 +16,7 @@ const List = {
           </el-select>
           <el-button type="primary" size="medium" @click="handleFilter">Filter</el-button>
         </div>
-        <el-button type="success" size="medium" @click="handleNew">新建</el-button>
+        <el-button type="primary" size="medium" @click="handleNew">新建</el-button>
       </div>
       <template v-if="status === 'loading'">
         <div class="loading">
@@ -32,8 +32,8 @@ const List = {
               </div>
               <div class="footer">
                 <div>
-                  <el-tag size="small" v-if="item.tags">{{ item.tags }}</el-tag>
                   <el-tag type="info" size="small" class="date">{{ item.createDate }} {{ item.createTime }}</el-tag>
+                  <el-tag size="small" v-if="item.tags">{{ item.tags }}</el-tag>
                 </div>
         		    <div class="actions">
                   <el-link type="success" @click="handleCopy(item.content)">复制</el-link>
@@ -47,7 +47,7 @@ const List = {
             layout="prev, pager, next"
             background
             :page-size="size"
-            :hide-on-single-page="true"
+            :hide-on-single-page="showPaging"
             :total="total"
             @current-change="handlePageChange">
           </el-pagination>

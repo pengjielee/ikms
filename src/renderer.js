@@ -48,20 +48,22 @@ const notifyMe = () => {
 };
 
 const Nothing = require("./pages/nothing.js");
-const HomeIndex = require("./pages/home/index.js");
+const Home = require("./pages/home/index.js");
 const CodeList = require("./pages/code/list.js");
 const CodeEdit = require("./pages/code/edit.js");
 const UrlList = require("./pages/url/list.js");
 const UrlEdit = require("./pages/url/edit.js");
 const NoteList = require("./pages/note/list.js");
+const Setting = require("./pages/setting/index.js");
 
 const routes = [
-  { path: "/", component: HomeIndex },
+  { path: "/", component: Home },
   { path: "/url/list", component: UrlList },
   { path: "/url/edit/:id?", component: UrlEdit },
   { path: "/code/list", component: CodeList },
   { path: "/code/edit/:id?", component: CodeEdit },
   { path: "/note/list", component: NoteList },
+  { path: "/setting", component: Setting },
 ];
 
 const router = new VueRouter({
@@ -71,6 +73,12 @@ const router = new VueRouter({
 var app = new Vue({
   el: "#app",
   router,
+  created: function () {
+    const theme = localStorage.getItem("theme") || "default";
+    document
+      .querySelector("#theme")
+      .setAttribute("href", `assets/themes/${theme}.css`);
+  },
   data: {
     message: "Hello Vue!",
   },

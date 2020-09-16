@@ -296,7 +296,11 @@ const createWindow = () => {
     const createDate = now.format("YYYY-MM-DD");
     const createTime = now.format("HH:mm:ss");
     const timestamp = now.valueOf();
-    const content = utils.encode(clipboard.readText());
+    let content = clipboard.readText();
+    if (content.indexOf("Kindle 位置") > 0) {
+      content = content.split(/\n/)[0];
+    }
+    content = utils.encode(content);
     let result = null;
     if (urlReg.test(content)) {
       const html = await rp(content);
@@ -304,7 +308,7 @@ const createWindow = () => {
       const title = $("head title").text();
       result = await urlRepo.create({
         title: title,
-        link: content,
+        link: content.trim(),
         createDate: createDate,
         timestamp: timestamp,
       });

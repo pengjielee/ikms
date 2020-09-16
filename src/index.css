@@ -54,7 +54,6 @@ select {
 .list .item .content {
   margin-bottom: 10px;
   word-break: break-all;
-  color: #333;
   font-size: 16px;
   line-height: 25px;
 }
@@ -63,23 +62,15 @@ select {
   align-content: center;
   justify-content: space-between;
 }
-.list .item .date {
-  color: #666;
-}
 .list .item .actions {
   font-size: 12px;
 }
 .list .item .copy {
   cursor: pointer;
-  color: #999;
 }
 .list .item .delete {
   cursor: pointer;
-  color: red;
   margin-right: 5px;
-}
-.list .item .success {
-  color: green;
 }
 .list .item:last-child {
   margin-bottom: 0;
@@ -96,7 +87,6 @@ select {
   padding: 0 0 15px;
 }
 .navs a {
-  color: #fff;
   text-decoration: none;
 }
 .navs .el-select {
@@ -134,7 +124,7 @@ select {
   padding: 8px 0;
 }
 .code-list .code-item .date {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .form-group {
@@ -190,10 +180,9 @@ select {
 }
 .page-header a {
   margin-right: 10px;
-  color: #66b1ff;
 }
 .page-header a.router-link-active {
-  color: #1015e4;
+  /*color: #1015e4;*/
 }
 
 .page-home {
@@ -225,6 +214,19 @@ select {
 .el-message {
   min-width: 100px;
   max-width: 260px;
+}
+
+.page-setting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-setting .el-form {
+  width: 280px;
+}
+.page-setting .el-form .el-select {
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {

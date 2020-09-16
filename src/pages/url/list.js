@@ -7,7 +7,7 @@ const List = {
       <div class="navs">
         <div class="left">
         </div>
-        <el-button type="success" size="medium" @click="handleNew">新建</el-button>
+        <el-button type="primary" size="medium" @click="handleNew">新建</el-button>
       </div>
       <template v-if="status === 'loading'">
         <div class="loading">
@@ -36,7 +36,7 @@ const List = {
             layout="prev, pager, next"
             background
             :page-size="size"
-            :hide-on-single-page="true"
+            :hide-on-single-page="showPaging"
             :total="total"
             @current-change="handlePageChange">
           </el-pagination>
