@@ -45,7 +45,7 @@ const Edit = {
         const statusCode = response && response.statusCode;
         if (statusCode === 200) {
           const $ = cheerio.load(body);
-          const title = $("head title").text();
+          const title = $("head title").text().trim();
           self.form.title = title;
         }
       });
@@ -56,23 +56,25 @@ const Edit = {
       const model = {
         createDate: now.format("YYYY-MM-DD"),
         timestamp: now.valueOf(),
-        title: this.form.title,
-        link: this.form.link,
+        title: this.form.title.trim(),
+        link: this.form.link.trim(),
       };
 
       if (id) {
         model.id = id;
         urlRepo.update(model).then((res) => {
-          this.$router.push("/url/list");
+          this.handleBack();
         });
       } else {
         urlRepo.create(model).then((res) => {
-          this.$router.push("/url/list");
+          this.handleBack();
         });
       }
     },
     handleBack() {
-      this.$router.back();
+      // this.$router.back();
+      const page = localStorage.getItem("URLPAGE") || 1;
+      this.$router.push(`/url/list/${page}`);
     },
   },
   data() {

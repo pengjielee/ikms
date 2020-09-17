@@ -46,6 +46,7 @@ const List = {
           <el-pagination
             layout="prev, pager, next"
             background
+            :current-page="page"
             :page-size="size"
             :hide-on-single-page="showPaging"
             :total="total"
@@ -59,7 +60,9 @@ const List = {
     </div>
 	`,
   created: async function () {
-    this.getList(1);
+    const page = this.$route.params.page || 1;
+    this.page = page;
+    this.getList(page);
     this.getTotal();
     ipcRenderer.on("reload", (event, notes) => {
       this.getList(1);
@@ -75,6 +78,7 @@ const List = {
     },
     handleEdit(id) {
       this.$router.push(`/code/edit/${id}`);
+      localStorage.setItem("CODEPAGE", this.page);
     },
     handleNew() {
       this.$router.push(`/code/edit`);

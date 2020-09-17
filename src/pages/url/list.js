@@ -36,6 +36,7 @@ const List = {
             layout="prev, pager, next"
             background
             :page-size="size"
+            :current-page="page"
             :hide-on-single-page="showPaging"
             :total="total"
             @current-change="handlePageChange">
@@ -49,7 +50,9 @@ const List = {
   `,
 
   created: function () {
-    this.getList(1);
+    const page = this.$route.params.page || 1;
+    this.page = page;
+    this.getList(page);
     this.getTotal();
     ipcRenderer.on("reload", (event, notes) => {
       this.getList(1);
@@ -68,6 +71,7 @@ const List = {
     },
     handleEdit(id) {
       this.$router.push(`/url/edit/${id}`);
+      localStorage.setItem("URLPAGE", this.page);
     },
     handleNew() {
       this.$router.push(`/url/edit`);

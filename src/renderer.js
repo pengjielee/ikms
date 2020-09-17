@@ -58,9 +58,9 @@ const Setting = require("./pages/setting/index.js");
 
 const routes = [
   { path: "/", component: Home },
-  { path: "/url/list", component: UrlList },
+  { path: "/url/list/:page?", component: UrlList },
   { path: "/url/edit/:id?", component: UrlEdit },
-  { path: "/code/list", component: CodeList },
+  { path: "/code/list/:page?", component: CodeList },
   { path: "/code/edit/:id?", component: CodeEdit },
   { path: "/note/list", component: NoteList },
   { path: "/setting", component: Setting },

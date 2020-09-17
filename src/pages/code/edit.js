@@ -78,18 +78,18 @@ const Edit = {
       if (id) {
         note.id = id;
         codeRepo.update(note).then((res) => {
-          console.log(res);
-          this.$router.push("/code/list");
+          this.handleBack();
         });
       } else {
         codeRepo.create(note).then((res) => {
-          console.log(res);
-          this.$router.push("/code/list");
+          this.handleBack();
         });
       }
     },
     handleBack() {
-      this.$router.back();
+      // this.$router.back();
+      const page = localStorage.getItem("CODEPAGE") || 1;
+      this.$router.push(`/code/list/${page}`);
     },
   },
   data() {
