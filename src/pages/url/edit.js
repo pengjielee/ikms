@@ -1,6 +1,6 @@
 const Edit = {
   template: `
-    <el-form :model="form">
+    <el-form :model="form" ref="form">
       <el-form-item
         prop="link"
         label="Url"
@@ -51,29 +51,33 @@ const Edit = {
       });
     },
     handleSave() {
-      const { id } = this.$route.params;
-      const now = dayjs();
-      const model = {
-        createDate: now.format("YYYY-MM-DD"),
-        timestamp: now.valueOf(),
-        title: this.form.title.trim(),
-        link: this.form.link.trim(),
-      };
+      this.$refs["form"].validate((valid) => {
+        if (valid) {
+          const { id } = this.$route.params;
+          const now = dayjs();
+          const model = {
+            createDate: now.format("YYYY-MM-DD"),
+            timestamp: now.valueOf(),
+            title: this.form.title.trim(),
+            link: this.form.link.trim(),
+          };
 
-      if (id) {
-        model.id = id;
-        urlRepo.update(model).then((res) => {
-          this.handleBack();
-        });
-      } else {
-        urlRepo.create(model).then((res) => {
-          this.handleBack();
-        });
-      }
+          if (id) {
+            model.id = id;
+            urlRepo.update(model).then((res) => {
+              this.handleBack();
+            });
+          } else {
+            urlRepo.create(model).then((res) => {
+              this.handleBack(1);
+            });
+          }
+        }
+      })
     },
-    handleBack() {
+    handleBack(page) {
       // this.$router.back();
-      const page = localStorage.getItem("URLPAGE") || 1;
+      page = page || localStorage.getItem("URLPAGE") || 1;
       this.$router.push(`/url/list/${page}`);
     },
   },

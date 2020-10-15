@@ -291,7 +291,7 @@ const createWindow = () => {
     mainWindow = null;
   });
 
-  globalShortcut.register("CommandOrControl+Option+C", async function () {
+  globalShortcut.register("CommandOrControl+Option+S", async function () {
     const now = dayjs();
     const createDate = now.format("YYYY-MM-DD");
     const createTime = now.format("HH:mm:ss");
