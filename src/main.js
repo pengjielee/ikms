@@ -52,6 +52,10 @@ ipcMain.on("save-dialog", (event, data) => {
   });
 });
 
+ipcMain.on("export-url", (event, data) => {
+  exportData("urldate", data.dates);
+});
+
 const init = () => {
   app.dock.setIcon(path.join(__dirname, "assets/IconTemplate@2x.png"));
   app.setName("我的知识库");
@@ -172,7 +176,7 @@ init();
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow, trayIcon;
 
-const exportData = (type) => {
+const exportData = (type, dates) => {
   const options = {
     title: "请选择要保存的文件名",
     buttonLabel: "保存",
@@ -186,7 +190,21 @@ const exportData = (type) => {
         const urls = await urlRepo.getAll();
         content = urls
           .map((item) => {
-            return `${item.title}\r\n${item.link} \r\n\r\n`;
+            return `${item.title.replace(
+              /\s+/gi,
+              ""
+            )}\r\n${item.link.trim()} \r\n\r\n`;
+          })
+          .join("");
+        break;
+      case "urldate":
+        const results = await urlRepo.getAllByDate(dates[0], dates[1]);
+        content = results
+          .map((item) => {
+            return `${item.title.replace(
+              /\s+/gi,
+              ""
+            )}\r\n${item.link.trim()} \r\n\r\n`;
           })
           .join("");
         break;

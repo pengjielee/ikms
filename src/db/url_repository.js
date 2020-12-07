@@ -49,6 +49,11 @@ class UrlRepository {
     return this.dao.all(`SELECT count(*) num FROM urls`);
   }
 
+  getAllByDate(startDate, endDate) {
+    const sql = `SELECT * FROM urls where createDate >= '${startDate}' and createDate <= '${endDate}'`;
+    return this.dao.all(sql);
+  }
+
   getByDate(date) {
     return this.dao.all(
       `SELECT * FROM urls WHERE createDate = ? order by id desc`,

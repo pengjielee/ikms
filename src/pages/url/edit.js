@@ -1,5 +1,5 @@
 const Edit = {
-  template: `
+  template: ` 
     <el-form :model="form" ref="form">
       <el-form-item
         prop="link"
@@ -73,7 +73,7 @@ const Edit = {
             });
           }
         }
-      })
+      });
     },
     handleBack(page) {
       // this.$router.back();
