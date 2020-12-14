@@ -230,6 +230,10 @@ select {
   width: 100%;
 }
 
+.page-formatter .CodeMirror {
+  height: 400px;
+}
+
 @media screen and (max-width: 768px) {
 }
 

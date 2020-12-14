@@ -54,6 +54,7 @@ const CodeEdit = require("./pages/code/edit.js");
 const UrlList = require("./pages/url/list.js");
 const UrlEdit = require("./pages/url/edit.js");
 const NoteList = require("./pages/note/list.js");
+const Formatter = require("./pages/formatter/index.js");
 const Setting = require("./pages/setting/index.js");
 
 const routes = [
@@ -63,6 +64,7 @@ const routes = [
   { path: "/code/list/:page?", component: CodeList },
   { path: "/code/edit/:id?", component: CodeEdit },
   { path: "/note/list", component: NoteList },
+  { path: "/formatter", component: Formatter },
   { path: "/setting", component: Setting },
 ];
 
