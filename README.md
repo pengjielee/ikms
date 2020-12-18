@@ -12,12 +12,16 @@ $ npm run dev
 // 本地启动
 $ npm start
 
-// 打包dmg包
+// 打包dmg
 $ npm run dmg
 
 // 格式化代码 
 $ npm run pertty
 ```
+
+## 技术栈
+
+Electron + Vue + sqlite3
 
 ## 实现功能
 
@@ -51,3 +55,4 @@ $ npm run pertty
 - 重置知识库（Url/Note/Code）；
 - 导出知识库，导出为文本文件（Url/Note/Code）；
 - 备份还原知识库，备份整个数据库文件；
+
