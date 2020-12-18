@@ -2,7 +2,7 @@
   "name": "ikms",
   "productName": "ikms",
   "version": "1.0.0",
-  "description": "我的知识库",
+  "description": "一个本地知识库管理系统",
   "main": "src/main.js",
   "scripts": {
     "dev": "export NODE_ENV=development && electron-forge start",
@@ -10,14 +10,15 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\"",
     "clean": "rm -rf out && rm -rf dmg && mkdir dmg",
     "dmg": "npm run clean && npm run package && appdmg ./appdmg.json ./dmg/ikms.dmg",
-    "prettier": "prettier --write src/"
+    "pretty": "prettier --write src/"
   },
-  "keywords": [],
+  "keywords": [
+    "kms"
+  ],
   "author": {
-    "name": "Li Pengjie",
+    "name": "pengjielee",
     "email": "386276251@qq.com"
   },
   "license": "MIT",
