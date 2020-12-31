@@ -32,6 +32,21 @@ codeRepo.createTable();
 urlRepo.createTable();
 noteRepo.createTable();
 
+const showAlertDialog = (fn) => {
+  dialog.showMessageBox({
+    type: 'warning',
+    title: "确定？",
+    message: "确定要重置吗？",
+    buttons: ["OK", "Cancel"]
+  }).then(result => {
+      if(result.response === 0){
+        fn && fn();
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+}
+
 const urlReg = /(http[s]:)?\/\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+/;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -87,22 +102,28 @@ const init = () => {
           {
             label: "重置URL",
             click: function () {
-              urlRepo.reset();
-              mainWindow.webContents.send("reload");
+              showAlertDialog(() => {
+                urlRepo.reset();
+                mainWindow.webContents.send("reload");
+              });
             },
           },
           {
             label: "重置NOTE",
             click: function () {
-              noteRepo.reset();
-              mainWindow.webContents.send("reload");
+              showAlertDialog(() => {
+                noteRepo.reset();
+                mainWindow.webContents.send("reload");
+              });
             },
           },
           {
             label: "重置CODE",
             click: function () {
-              codeRepo.reset();
-              mainWindow.webContents.send("reload");
+              showAlertDialog(() => {
+                codeRepo.reset();
+                mainWindow.webContents.send("reload");
+              });
             },
           },
         ],
@@ -191,8 +212,8 @@ const exportData = (type, dates) => {
         content = urls
           .map((item) => {
             return `${item.title.replace(
-              /\s+/gi,
-              ""
+              /\s{2,}/gi,
+              " "
             )}\r\n${item.link.trim()} \r\n\r\n`;
           })
           .join("");
@@ -202,8 +223,8 @@ const exportData = (type, dates) => {
         content = results
           .map((item) => {
             return `${item.title.replace(
-              /\s+/gi,
-              ""
+              /\s{2,}/gi,
+              " "
             )}\r\n${item.link.trim()} \r\n\r\n`;
           })
           .join("");
