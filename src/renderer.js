@@ -56,6 +56,7 @@ const UrlEdit = require("./pages/url/edit.js");
 const NoteList = require("./pages/note/list.js");
 const Formatter = require("./pages/formatter/index.js");
 const Setting = require("./pages/setting/index.js");
+const Tool = require("./pages/tool/index.js");
 
 const routes = [
   { path: "/", component: Home },
@@ -66,6 +67,7 @@ const routes = [
   { path: "/note/list", component: NoteList },
   { path: "/formatter", component: Formatter },
   { path: "/setting", component: Setting },
+  { path: "/tool", component: Tool },
 ];
 
 const router = new VueRouter({

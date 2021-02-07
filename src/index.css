@@ -234,6 +234,16 @@ select {
   height: 400px;
 }
 
+.page-tool {
+  text-align: center;
+}
+
+.page-tool .textarea {
+  width: 600px;
+  height: 300px;
+  padding: 10px;
+}
+
 @media screen and (max-width: 768px) {
 }
 
